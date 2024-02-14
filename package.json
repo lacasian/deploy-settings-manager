@@ -1,6 +1,6 @@
 {
   "name": "deploy-settings-manager",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Deploy settings manager",
   "scripts": {
     "build": "tsup",
@@ -19,6 +19,7 @@
     "dist"
   ],
   "dependencies": {
+    "ethers": "^6.11.0",
     "hardhat": "^2.19.5"
   }
 }

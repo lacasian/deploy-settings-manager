@@ -1,3 +1,5 @@
+import {ethers} from "ethers";
+
 export class SettingsReader {
     #data: Record<string, any> = {};
 
@@ -10,6 +12,16 @@ export class SettingsReader {
 
         if (!value) {
             throw new Error(`Value for ${key} not found`);
+        }
+
+        return value;
+    }
+
+    mustGetAddress(key: string) {
+        const value = this.mustGet(key);
+
+        if (!ethers.isAddress(value)) {
+            throw new Error(`Value for ${key} is not a valid address`);
         }
 
         return value;

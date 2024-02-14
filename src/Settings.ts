@@ -89,4 +89,8 @@ export class Settings {
     mustGetReader(key: string) {
         return this.#reader.mustGetReader(key);
     }
+
+    mustGetAddress(key: string) {
+        return this.#reader.mustGetAddress(key);
+    }
 }
