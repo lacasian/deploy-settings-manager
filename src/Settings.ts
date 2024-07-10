@@ -4,6 +4,7 @@ import { FileManager, Options } from "./FileManager";
 export class Settings {
     #fileName: string;
     #tag: string | undefined;
+    #network: string | undefined;
     #options: Options;
 
     #fm: FileManager;
@@ -12,6 +13,7 @@ export class Settings {
     constructor(
         fileName: string = "settings",
         tag: string | undefined = undefined,
+        network: string | undefined = undefined,
         options: Options = {
             basePath: "./settings",
         },
@@ -22,9 +24,10 @@ export class Settings {
 
         this.#fileName = fileName;
         this.#tag = tag;
+        this.#network = network;
         this.#options = options;
 
-        this.#fm = new FileManager(fileName, tag, options);
+        this.#fm = new FileManager(fileName, tag, network, options);
         this.#reader = new SettingsReader(this.#fm.get());
     }
 
@@ -35,7 +38,7 @@ export class Settings {
     }
 
     tag(value: string) {
-        return new Settings(this.#fileName, value, this.#options);
+        return new Settings(this.#fileName, value, this.#network, this.#options);
     }
 
     static file(value: string) {
@@ -43,8 +46,17 @@ export class Settings {
     }
 
     file(value: string) {
-        return new Settings(value, this.#tag, this.#options);
+        return new Settings(value, this.#tag,  this.#network, this.#options);
     }
+
+    static network(value: string) {
+        return new Settings("settings", undefined, value);
+    }
+
+    network(value: string) {
+        return new Settings(this.#fileName, this.#tag, value, this.#options);
+    }
+
 
     /// ---- Settings only functions ----
     // note: we don't allow `set` on reader because there's no way to propagate the

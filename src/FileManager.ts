@@ -15,14 +15,19 @@ export class FileManager {
     constructor(
         fileName: string,
         tag: string | undefined = undefined,
+        network: string | undefined = undefined,
         options: Options = {
             basePath: "./settings",
         },
     ) {
         this.#basePath = options.basePath || "./settings";
 
-        const hre = require("hardhat");
-        this.#network = hre.network.name;
+        if (!network) {
+            const hre = require("hardhat");
+            this.#network = hre.network.name;
+        } else {
+            this.#network = network;
+        }
 
         this.#tag = tag;
         this.#fileName = fileName;
